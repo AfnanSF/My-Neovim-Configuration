@@ -1,27 +1,27 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  Plug 'neovim/nvim-lspconfig'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'jiangmiao/auto-pairs'
   Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
   Plug 'preservim/nerdtree'
   Plug 'tpope/vim-commentary'
-  Plug 'kyazdani42/nvim-web-devicons'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+" Configuration for clangd with nvim-lspconfig
+let g:clangd_args = ['--background-index']
+autocmd FileType c,cpp lua require('lspconfig').clangd.setup{}
+
+
+
+let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -114,6 +114,3 @@ nnoremap <leader>e :MySnippetExpand<CR>
 
 " Format current buffer using Astyle
 nnoremap <F3> :%!astyle --style=stroustrup -q<CR>
-
-
-source ~/.config/nvim/coc.vim
