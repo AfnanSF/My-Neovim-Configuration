@@ -11,6 +11,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'SirVer/ultisnips'
   Plug 'preservim/nerdtree'
   Plug 'tpope/vim-commentary'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -18,6 +20,13 @@ call plug#end()
 " Configuration for clangd with nvim-lspconfig
 let g:clangd_args = ['--background-index']
 autocmd FileType c,cpp lua require('lspconfig').clangd.setup{}
+
+
+" Configuration for coc.nvim
+" Enable coc.nvim for C++
+let g:coc_global_extensions = [
+  \ 'coc-clangd'
+  \ ]
 
 
 
@@ -34,7 +43,8 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set encoding=utf-8
-set number
+set relativenumber
+
 " Automatically save the buffer when it loses focus or on CursorHold
 au FocusLost,CursorHold * silent! wall
 
